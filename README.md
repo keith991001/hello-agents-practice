@@ -1,6 +1,6 @@
 # hello-agents-tutorial
 
-从零跟着 [datawhalechina/hello-agents 第七章](https://github.com/datawhalechina/hello-agents/blob/main/docs/chapter7/%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E6%9E%84%E5%BB%BA%E4%BD%A0%E7%9A%84Agent%E6%A1%86%E6%9E%B6.md) 一步步构建的 Agent 学习项目。
+从零跟着 [datawhalechina/hello-agents](https://github.com/datawhalechina/hello-agents/blob/main/docs/chapter7/%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E6%9E%84%E5%BB%BA%E4%BD%A0%E7%9A%84Agent%E6%A1%86%E6%9E%B6.md) 一步步构建的 Agent 学习项目。
 
 ## 包含什么
 
