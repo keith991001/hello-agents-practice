@@ -2,7 +2,21 @@
 
 从零跟着 datawhalechina/hello-agents 教材构建的 Agent 学习项目。涵盖 **第 7 章（构建 Agent 框架）** 和 **第 8 章（记忆与 RAG）**。
 
-## 第 7 章成果
+## 项目结构
+
+```
+hello-agents-tutorial/
+├── ch7/                   # 第 7 章：Agent 框架核心
+├── ch8/                   # 第 8 章：记忆与 RAG
+├── knowledge_base/        # ch8 用的测试语料（Markdown）
+├── memory_data/           # ch8 自动生成的 SQLite 缓存（.gitignored）
+├── .env                   # API key（.gitignored）
+├── .env.example
+├── requirements.txt
+└── README.md
+```
+
+## 第 7 章成果（ch7/）
 
 - **LLM 客户端扩展** (`my_llm.py`) — 继承 `HelloAgentsLLM` 添加干净流式输出和 token 追踪
 - **SimpleAgent + 工具调用** (`my_simple_agent.py`) — Prompt 模板嵌入式工具调用
@@ -11,13 +25,12 @@
 - **Wikipedia 搜索工具** (`wikipedia_tool.py`) — 调用维基开放 REST API
 - **多工具协同 demo** (`test_multi_tool_agent.py`) — ReAct + 计算器 + 维基百科组合
 
-## 第 8 章成果
+## 第 8 章成果（ch8/）
 
 - **冒烟测试** (`smoke_test_ch8.py`) — 一次性验证 DeepSeek / DashScope / Qdrant / Neo4j 四个云服务连通
 - **记忆系统 demo** (`test_memory_basic.py` / `test_memory_persist.py`) — 跨进程的对话记忆，使用 Qdrant 向量库做语义检索
 - **直接调用工具诊断** (`test_memory_direct.py`) — 绕过 LLM 验证 MemoryTool 底层是否工作
 - **RAG 系统** (`test_rag_basic.py` / `test_rag_ask.py` / `test_rag_rechunked.py`) — 文档问答，含 chunk_size 调优实验
-- **知识库** (`knowledge_base/`) — Markdown 格式的小规模测试语料
 - **诊断脚本** (`diagnose_neo4j.py` / `debug_rag.py`) — 定位云服务和检索质量问题
 
 ## 环境要求
@@ -41,20 +54,20 @@ python -m spacy download en_core_web_sm
 # 2. 配置 API key
 cp .env.example .env       # 然后编辑 .env 填入你的 sk-...
 
-# 3. 跑示例
+# 3. 跑示例（都从项目根目录运行）
 # --- 第 7 章 ---
-python quick_test.py                  # 验证 LLM 调用
-python test_my_simple_agent.py        # SimpleAgent + 工具调用
-python test_my_react_agent.py         # ReAct
-python test_advanced_agents.py        # Reflection / Plan-Solve / Function Calling
-python test_multi_tool_agent.py       # 多工具协同
+python ch7/quick_test.py                  # 验证 LLM 调用
+python ch7/test_my_simple_agent.py        # SimpleAgent + 工具调用
+python ch7/test_my_react_agent.py         # ReAct
+python ch7/test_advanced_agents.py        # Reflection / Plan-Solve / Function Calling
+python ch7/test_multi_tool_agent.py       # 多工具协同
 
 # --- 第 8 章 ---
-python smoke_test_ch8.py              # 云基础设施冒烟测试
-python test_memory_direct.py          # 直接验证 memory 工具
-python test_memory_persist.py store   # 跨进程持久化 - 写
-python test_memory_persist.py recall  # 跨进程持久化 - 读
-python test_rag_ask.py                # RAG 问答
+python ch8/smoke_test_ch8.py              # 云基础设施冒烟测试
+python ch8/test_memory_direct.py          # 直接验证 memory 工具
+python ch8/test_memory_persist.py store   # 跨进程持久化 - 写
+python ch8/test_memory_persist.py recall  # 跨进程持久化 - 读
+python ch8/test_rag_ask.py                # RAG 问答
 ```
 
 ## 踩过的坑（学习记录）
