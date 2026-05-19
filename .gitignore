@@ -1,18 +1,18 @@
-  # Python virtual environment - never commit, dozens of MB
-  .venv/
-  __pycache__/
-  *.pyc
-  *.pyo
-  *.pyd
-  
-  # Secrets - never commit
-  .env
-  .env.local
-  
-  # macOS
-  .DS_Store
+# Python virtual environment - never commit, dozens of MB
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
-  # IDE
-  .vscode/
-  .idea/
-  *.swp
+# Secrets - never commit
+.env
+.env.local
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
