@@ -13,7 +13,7 @@ messages = [
     {"role": "user", "content": "用一句话介绍你自己。"}
 ]
 
-print("DeepSeek 响应：", end="", flush=True)
-for chunk in llm.think(messages):
-    print(chunk, end="", flush=True)
-print("\n\n✓ 调用成功！")
+# 用 invoke（非流式）拿一次完整字符串，避免框架内部自己 print 造成重复
+response = llm.invoke(messages)
+print(f"DeepSeek 响应：{response}")
+print("\n✓ 调用成功！")
