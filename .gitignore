@@ -16,3 +16,11 @@ __pycache__/
 .vscode/
 .idea/
 *.swp
+
+# Runtime data from MemoryTool - private memories, never commit
+memory_data/
+
+# Local artifacts created by ch8 demos
+rag_pipeline_kb/
+agent_integration_kb/
+report_session_*.json
