@@ -1,4 +1,4 @@
-"""8.x 节：完整 RAG 流水线 —— 摄取、分块、检索、问答全链路
+"""8.6 节：完整 RAG 流水线 —— 摄取、分块、检索、问答全链路
 
 test_rag_basic 已经跑通最简流程（add_document → ask）。
 本节展开"完整管道"的关键参数和高级检索：
@@ -11,6 +11,23 @@ test_rag_basic 已经跑通最简流程（add_document → ask）。
 高级检索技巧（这是 08 章独有的）：
   - MQE  (Multi-Query Expansion): 把 1 个问题改写成 N 个语义相近的问题, 召回更全
   - HyDE (Hypothetical Document Embeddings): 让 LLM 先"假装"写答案, 再用这个假答案去检索
+
+## 前置条件
+- .env 已配 LLM / DashScope / Qdrant
+- `knowledge_base/` 目录有至少 1 个 .md 文件（默认仓库里有 `pepabo_intro.md` / `web_basics.md`）
+- 不依赖 `ch8_demo` collection —— 本文件用独立的 `ch8_pipeline` namespace
+
+## 跑完会产生什么
+- Qdrant 里多一个 `rag_namespace="ch8_pipeline"` 的 collection
+- stdout 输出 3 档检索对比（基础 / MQE / HyDE）+ 最终端到端答案
+- 注意: 开 MQE/HyDE 后 LLM 调用次数 ×3~5, 耗时显著增加（你会等几十秒）
+
+## 下一步
+推荐接着跑 `11_qa_assistant.py` —— 终章作品，把 Memory + RAG + Agent 全封装成一个类。
+
+## 已知 API 不确定点
+`enable_mqe` / `enable_hyde` flag 是从官方 11 号文件抄的，
+如果你的 hello-agents 版本不识别这些参数，可以删掉，回退到基础检索。
 """
 import os
 from dotenv import load_dotenv

@@ -1,4 +1,4 @@
-"""8.x 节 终章作品：智能文档问答助手
+"""8.7 节 终章作品：智能文档问答助手
 
 前面 10 个例子都是"演示 API"，这一个是"组装产品"。
 把 RAG（外部知识）+ Memory（用户上下文）+ Agent（LLM 决策）封装成一个类，
@@ -16,6 +16,37 @@
                   Qdrant Cloud    Qdrant + Neo4j
 
 CLI 版（官方版用 Gradio Web UI；UI 不是第 8 章核心，我们保留架构本体）。
+
+## 前置条件
+- .env 已配 LLM / DashScope / Qdrant
+- 一份文档来加载（默认期待 PDF，但 hello-agents 的 RAGTool 用 MarkItDown 解析,
+  理论上也能吃 .md / .docx / .html / .txt —— 试试 `load knowledge_base/web_basics.md`）
+
+## 跑完会产生什么
+- Qdrant 里多一个 `rag_namespace="pdf_keith"` 和 `user_id="keith"` 的 collection
+- 进入交互模式后, 每个 ask/note/recall 都会落到云端
+- 输入 `report` 会在当前目录生成 `report_session_*.json`（已加进 .gitignore）
+
+## CLI 命令
+  load <path>     灌一份文档到这个用户的私有 RAG 知识库
+  ask <q>         问问题（用 MQE+HyDE 高级检索）
+  recall <q>      回忆 — 在自己的记忆里搜
+  note <txt>      记笔记（落 semantic memory）
+  stats           查会话统计
+  report          生成 JSON 报告
+  quit            退出
+
+## 试用脚本
+  >>> load knowledge_base/web_basics.md
+  >>> ask HTTP PUT 和 PATCH 有什么区别?
+  >>> note PUT 整体替换, PATCH 局部修改
+  >>> recall PUT
+  >>> stats
+  >>> quit
+
+## 下一步
+这就是第 8 章的终点了。可以继续学 hello-agents 的 ch9+（出到 ch16），
+或者把这个 PDFLearningAssistant 套个 Gradio UI 变成 Web 应用（参考官方 11 号文件）。
 """
 import os
 import json

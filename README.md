@@ -2,6 +2,16 @@
 
 从零跟着 datawhalechina/hello-agents 教材构建的 Agent 学习项目。涵盖 **第 7 章（构建 Agent 框架）** 和 **第 8 章（记忆与 RAG）**。
 
+## 如何用这个 repo 学习
+
+这个 repo 设计成 **"未来的我 + Claude Code 协作"** 模式 —— 任何时候 clone 下来，配好 .env 后让 CC 读项目，就能自动找到学习路径。
+
+- **第 7 章**：已学完，代码全部跑通 → 直接读 `ch7/` 复习即可
+- **第 8 章**：
+  - **`ch8/test_*.py / debug_*.py / smoke_test_*.py`** —— 自己写的诊断脚本（学第 8 章时一边踩坑一边写的）
+  - **`ch8/06_*.py / 08_*.py / 10_*.py / 11_*.py`** —— 跟官方教程对齐的 **概念演示**（编号匹配 `datawhalechina/hello-agents/code/chapter8/` 里的编号）
+  - 完整学习路径见 [ch8/README.md](ch8/README.md)
+
 ## 项目结构
 
 ```
@@ -26,6 +36,19 @@ hello-agents-tutorial/
 - **多工具协同 demo** (`test_multi_tool_agent.py`) — ReAct + 计算器 + 维基百科组合
 
 ## 第 8 章成果（ch8/）
+
+### 📘 概念演示（跟官方教程章节对齐）
+
+按编号顺序读 / 跑，每个文件对应一个教程概念：
+
+- **`06_memory_consolidation.py`** — 记忆固化（working → episodic/semantic 智能迁移）
+- **`08_agent_tool_integration.py`** — 一个 Agent 同时挂载 Memory + RAG 两个工具，LLM 自主路由
+- **`10_rag_pipeline_complete.py`** — 完整 RAG 流水线 + MQE/HyDE 高级检索对比
+- **`11_qa_assistant.py`** — **终章作品**：`PDFLearningAssistant` 类（Memory + RAG + Agent 封装）+ CLI 交互
+
+### 🔧 自己写的诊断与验证脚本
+
+学第 8 章时一边写一边踩坑的，帮你理解底层在做什么：
 
 - **冒烟测试** (`smoke_test_ch8.py`) — 一次性验证 DeepSeek / DashScope / Qdrant / Neo4j 四个云服务连通
 - **记忆系统 demo** (`test_memory_basic.py` / `test_memory_persist.py`) — 跨进程的对话记忆，使用 Qdrant 向量库做语义检索
@@ -62,12 +85,19 @@ python ch7/test_my_react_agent.py         # ReAct
 python ch7/test_advanced_agents.py        # Reflection / Plan-Solve / Function Calling
 python ch7/test_multi_tool_agent.py       # 多工具协同
 
-# --- 第 8 章 ---
+# --- 第 8 章：先验证基础设施 ---
 python ch8/smoke_test_ch8.py              # 云基础设施冒烟测试
 python ch8/test_memory_direct.py          # 直接验证 memory 工具
 python ch8/test_memory_persist.py store   # 跨进程持久化 - 写
 python ch8/test_memory_persist.py recall  # 跨进程持久化 - 读
+python ch8/test_rag_basic.py              # 灌文档到 ch8_demo 知识库（08/10 都依赖这一步）
 python ch8/test_rag_ask.py                # RAG 问答
+
+# --- 第 8 章：概念演示（跟官方教程对齐，推荐学习顺序）---
+python ch8/06_memory_consolidation.py     # 短期 → 长期记忆固化
+python ch8/08_agent_tool_integration.py   # Agent + Memory + RAG 集成（依赖前面的 ch8_demo 已灌好）
+python ch8/10_rag_pipeline_complete.py    # 完整 RAG 管道 + MQE/HyDE
+python ch8/11_qa_assistant.py             # 终章作品：PDFLearningAssistant 类 + CLI
 ```
 
 ## 踩过的坑（学习记录）
@@ -110,7 +140,10 @@ python ch8/test_rag_ask.py                # RAG 问答
 - [x] 8.1 云基础设施搭建（Qdrant / Neo4j / DashScope）
 - [x] 8.2 Memory 系统（working / episodic / semantic 三种类型 + 跨进程持久化验证）
 - [x] 8.3 RAG 系统（文档索引、向量检索、ask vs search、chunk 调优）
-- [ ] 8.4 综合问答助手（跳过 —— Memory + RAG 单独都已会用，组合无新概念）
+- [x] 8.4 记忆固化（`06_memory_consolidation.py`）
+- [x] 8.5 Agent + 工具集成（`08_agent_tool_integration.py`）
+- [x] 8.6 完整 RAG 管道 + MQE/HyDE（`10_rag_pipeline_complete.py`）
+- [x] 8.7 终章作品：智能文档问答助手（`11_qa_assistant.py`）
 
 ## License
 

@@ -1,4 +1,4 @@
-"""8.x 节：Agent + Memory + RAG 集成 —— 把两个工具挂在同一个 Agent 上
+"""8.5 节：Agent + Memory + RAG 集成 —— 把两个工具挂在同一个 Agent 上
 
 前面 test_memory_basic 演示了 Agent + Memory，test_rag_basic 演示了 Agent + RAG。
 本节关键：**两个工具同时挂到一个 Agent**，让 LLM 自己决定什么时候用哪个。
@@ -12,6 +12,20 @@
   - 用户告诉 Agent 一条事实  →  MemoryTool 存
   - 用户问文档里的内容       →  RAGTool 查
   - 用户问"我刚才学了什么"   →  MemoryTool 查
+
+## 前置条件
+- .env 已配 LLM / DashScope / Qdrant
+- **必须先跑过 `test_rag_basic.py`** —— 它把 `knowledge_base/*.md` 灌进了
+  rag_namespace="ch8_demo"，本文件 Scenario 2/3 依赖那个 collection 有内容
+- 跑过 `test_memory_basic.py`（验证 MemoryTool 能用）
+
+## 跑完会产生什么
+- Qdrant 里多一个 user_id="keith_integration" 的记忆 collection
+- stdout 三个 Scenario：教 Agent 个人信息 / 问知识库 / 复合问题
+- 末尾 Memory & RAG stats 各打印一次
+
+## 下一步
+推荐接着跑 `10_rag_pipeline_complete.py` —— 学高级检索（MQE、HyDE）。
 """
 from dotenv import load_dotenv
 from hello_agents import SimpleAgent, HelloAgentsLLM, ToolRegistry

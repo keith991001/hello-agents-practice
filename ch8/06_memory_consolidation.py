@@ -1,4 +1,4 @@
-"""8.x 节：记忆固化 —— 把短期记忆"沉淀"成长期记忆
+"""8.4 节：记忆固化 —— 把短期记忆"沉淀"成长期记忆
 
 人脑睡觉时会把"工作记忆"里重要的部分搬到长期记忆，不重要的丢掉。
 MemoryTool.consolidate() 模仿这个过程：按 importance 阈值，
@@ -8,6 +8,22 @@ MemoryTool.consolidate() 模仿这个过程：按 importance 阈值，
   working → episodic   （事件型经历："今天开了会"）
   working → semantic   （概念型知识："注意力机制的原理"）
   episodic → semantic  （从多次经历中提炼出通用知识）
+
+## 前置条件
+- .env 已配 LLM / DashScope / Qdrant（Memory 工具会写向量到 Qdrant）
+- 已跑过 `smoke_test_ch8.py` 确认四个云服务通
+
+## 跑完会产生什么
+- Qdrant 里多一个 `user_id="keith_consolidation"` 的记忆集合
+- stdout 会看到 4 次 stats 输出（固化前 / working→episodic 后 / working→semantic 后 / 最终）
+
+## 下一步
+推荐接着跑 `08_agent_tool_integration.py` —— 把 Memory + RAG 同时挂到一个 Agent 上。
+
+## 已知 API 不确定点
+`MemoryTool(memory_types=[...])` 这个 kwarg 是从官方 demo 抄的，
+如果你的 hello-agents 版本不接受，删掉这个参数即可（默认就有 working/episodic/semantic）。
+`consolidate` action 同理 —— 若 unknown action，需要去查源码确认 API。
 """
 from dotenv import load_dotenv
 from hello_agents.tools import MemoryTool
